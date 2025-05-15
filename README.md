@@ -1,5 +1,11 @@
 # ArgusAI - Estimation Automatisée de Véhicules
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/release/PamellaCode/argus-ia.svg)](https://github.com/PamellaCode/argus-ia/releases)
+[![Documentation](https://img.shields.io/badge/docs-latest-blue.svg)](https://github.com/PamellaCode/argus-ia/tree/main/docs)
+[![GitHub issues](https://img.shields.io/github/issues/PamellaCode/argus-ia.svg)](https://github.com/PamellaCode/argus-ia/issues)
+[![GitHub stars](https://img.shields.io/github/stars/PamellaCode/argus-ia.svg)](https://github.com/PamellaCode/argus-ia/stargazers)
+
 ArgusAI est une application web moderne qui permet d'estimer automatiquement la valeur d'un véhicule à partir de sa plaque d'immatriculation. Ce projet a été développé dans le cadre d'un stage.
 
 ## 🚀 Fonctionnalités
