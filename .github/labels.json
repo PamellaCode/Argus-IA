@@ -1,0 +1,54 @@
+{
+  "labels": [
+    {
+      "name": "bug",
+      "color": "d73a4a",
+      "description": "Quelque chose ne fonctionne pas"
+    },
+    {
+      "name": "enhancement",
+      "color": "a2eeef",
+      "description": "Nouvelle fonctionnalité ou amélioration"
+    },
+    {
+      "name": "documentation",
+      "color": "0075ca",
+      "description": "Améliorations ou mises à jour de la documentation"
+    },
+    {
+      "name": "good first issue",
+      "color": "7057ff",
+      "description": "Bon pour les nouveaux contributeurs"
+    },
+    {
+      "name": "help wanted",
+      "color": "008672",
+      "description": "Besoin d'aide supplémentaire"
+    },
+    {
+      "name": "priority: high",
+      "color": "ff0000",
+      "description": "Priorité haute"
+    },
+    {
+      "name": "priority: medium",
+      "color": "ffa500",
+      "description": "Priorité moyenne"
+    },
+    {
+      "name": "priority: low",
+      "color": "00ff00",
+      "description": "Priorité basse"
+    },
+    {
+      "name": "status: in progress",
+      "color": "1d76db",
+      "description": "En cours de développement"
+    },
+    {
+      "name": "status: review needed",
+      "color": "fbca04",
+      "description": "Nécessite une revue"
+    }
+  ]
+} 
