@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArgusAI – Projet de stage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Ajout des icônes Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+      /* Animations personnalisées */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes gradientFlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+
+      @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-10px); }
+        100% { transform: translateY(0px); }
+      }
+
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+      }
+
+      @keyframes shine {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+
+      @keyframes borderGlow {
+        0% { border-color: rgba(34, 197, 94, 0.2); }
+        50% { border-color: rgba(14, 165, 233, 0.5); }
+        100% { border-color: rgba(34, 197, 94, 0.2); }
+      }
+
+      @keyframes iconSpin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.6s ease-out forwards;
+      }
+
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .animate-pulse-slow {
+        animation: pulse 3s ease-in-out infinite;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(-45deg, #0ea5e9, #22c55e, #0284c7, #16a34a);
+        background-size: 400% 400%;
+        animation: gradientFlow 15s ease infinite;
+      }
+
+      .hover-scale {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .hover-scale:hover {
+        transform: scale(1.05) translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .card-hover {
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+      }
+
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-color: rgba(34, 197, 94, 0.5);
+      }
+
+      .neon-divider {
+        height: 2px;
+        background: linear-gradient(90deg, 
+          transparent 0%, 
+          rgba(34, 197, 94, 0.2) 20%, 
+          rgba(14, 165, 233, 0.5) 50%, 
+          rgba(34, 197, 94, 0.2) 80%, 
+          transparent 100%
+        );
+        box-shadow: 0 0 15px rgba(34, 197, 94, 0.3),
+                    0 0 30px rgba(14, 165, 233, 0.2),
+                    0 0 45px rgba(34, 197, 94, 0.1);
+        margin: 3rem 0;
+        border-radius: 2px;
+      }
+
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .parallax-section {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+
+      .gradient-text {
+        background: linear-gradient(45deg, #0ea5e9, #22c55e);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .shine-effect {
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        background-size: 200% 100%;
+        animation: shine 3s infinite linear;
+      }
+
+      .border-glow {
+        animation: borderGlow 3s infinite;
+        border: 2px solid;
+      }
+
+      .icon-spin {
+        animation: iconSpin 20s linear infinite;
+      }
+
+      .hover-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hover-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .hover-card:hover::before {
+        left: 100%;
+      }
+
+      .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #0ea5e9, #22c55e);
+        border-radius: 4px;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(45deg, #0284c7, #16a34a);
+      }
+
+      .nav-link {
+        position: relative;
+      }
+
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(45deg, #0ea5e9, #22c55e);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .modal-content {
+        transform: scale(0.95);
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .modal-content.active {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      .feature-icon {
+        transition: all 0.3s ease;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.2) rotate(5deg);
+        color: #22c55e;
+      }
+
+      .gradient-border {
+        position: relative;
+        border-radius: 0.75rem;
+        padding: 1px;
+        background: linear-gradient(45deg, #0ea5e9, #22c55e);
+      }
+
+      .gradient-border::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 0.75rem;
+        padding: 2px;
+        background: linear-gradient(45deg, #0ea5e9, #22c55e);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+      }
+
+      .modal-nav-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 60;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .modal-nav-button:hover {
+        background: white;
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .modal-nav-button.prev {
+        left: 20px;
+      }
+
+      .modal-nav-button.next {
+        right: 20px;
+      }
+
+      .modal-nav-button i {
+        color: #0ea5e9;
+        font-size: 1.2rem;
+      }
+
+      .modal-nav-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: translateY(-50%) scale(1);
+      }
+
+      .modal-nav-button:disabled:hover {
+        transform: translateY(-50%) scale(1);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .modal-counter {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        z-index: 60;
+      }
+
+      .scroll-to-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+        border: 2px solid transparent;
+        background: linear-gradient(white, white) padding-box,
+                    linear-gradient(45deg, #0ea5e9, #22c55e) border-box;
+      }
+
+      .scroll-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .scroll-to-top:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      }
+
+      .scroll-to-top img {
+        width: 30px;
+        height: 30px;
+        transition: transform 0.3s ease;
+      }
+
+      .scroll-to-top:hover img {
+        transform: scale(1.1);
+      }
+
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+      }
+
+      .scroll-to-top.visible:hover {
+        animation: bounce 1s infinite;
+      }
+
+      .video-container {
+        position: relative;
+      }
+
+      .video-container:hover .play-overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .video-container video {
+        transition: transform 0.3s ease;
+      }
+
+      .video-container:hover video {
+        transform: scale(1.05);
+      }
+
+      .hero-video-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .hero-play-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border-radius: 0.75rem;
+      }
+
+      .hero-play-overlay:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .hero-play-button {
+        width: 80px;
+        height: 80px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+
+      .hero-play-overlay:hover .hero-play-button {
+        transform: scale(1.1);
+        background-color: white;
+      }
+
+      .hero-play-button i {
+        color: #0ea5e9;
+        font-size: 32px;
+        margin-left: 6px;
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-to-br from-blue-50 via-green-50 to-blue-50 text-gray-800 font-sans custom-scrollbar">
+
+    <!-- Bouton de retour vers le haut -->
+    <button id="scrollToTop" class="scroll-to-top" onclick="scrollToTop()" aria-label="Retour en haut">
+      <img src="/Images/Logo_avancée_appli_Fleece_AI-removebg (1).png" alt="Retour en haut" class="w-8 h-8">
+    </button>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 flex justify-between items-center px-8 py-6 glass-effect shadow-lg border-glow">
+      <h1 class="text-3xl font-bold gradient-text flex items-center gap-3 animate-pulse-slow">
+        <img src="/Images/Logo_avancée_appli_Fleece_AI-removebg (1).png" alt="Logo ArgusAI" class="h-16 w-auto">
+        ArgusAI
+      </h1>
+      <nav class="space-x-8 hidden md:flex">
+        <a href="#features" class="nav-link hover:text-blue-500 transition-colors flex items-center gap-2 text-lg">
+          <i class="fas fa-star"></i> Fonctionnalités
+        </a>
+        <a href="#skills" class="hover:text-blue-500 transition-colors flex items-center gap-2 text-lg">
+          <i class="fas fa-code"></i> Compétences
+        </a>
+        <a href="#demo" class="hover:text-blue-500 transition-colors flex items-center gap-2 text-lg">
+          <i class="fas fa-images"></i> Démo
+        </a>
+        <a href="#contact" class="hover:text-blue-500 transition-colors flex items-center gap-2 text-lg">
+          <i class="fas fa-envelope"></i> Contact
+        </a>
+      </nav>
+      <a href="#demo" class="gradient-border px-6 py-3 rounded-xl text-white hover:shadow-lg transition-all duration-300 flex items-center gap-2 text-lg shine-effect">
+        <i class="fas fa-play"></i> Voir la démo
+      </a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="px-6 py-20 text-center gradient-bg text-white animate-fade-in relative overflow-hidden">
+      <div class="absolute inset-0 shine-effect"></div>
+      <h2 class="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+        <i class="fas fa-car-side text-4xl text-blue-500"></i>
+        L'IA qui estime la vraie valeur de votre voiture
+      </h2>
+      <p class="text-lg mb-6">Un projet de stage complet, de la conception à la démonstration technique.</p>
+      <!-- Espace vidéo -->
+      <div class="mt-10 flex justify-center items-center">
+        <div class="hero-video-container">
+          <video id="heroVideo" class="rounded-xl shadow-lg" width="640" height="360" muted>
+            <source src="/Images/Tableau de bord.mp4" type="video/mp4">
+          </video>
+          <div class="hero-play-overlay" id="heroPlayOverlay">
+            <div class="hero-play-button">
+              <i class="fas fa-play"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="neon-divider"></div>
+
+    <!-- Fonctionnalités -->
+    <section id="features" class="px-6 py-16 glass-effect text-center">
+      <h3 class="text-3xl font-bold mb-8 flex items-center justify-center gap-3 gradient-text text-shadow">
+        <i class="fas fa-wand-magic-sparkles text-4xl animate-float"></i>
+        Une estimation rapide, fiable et intelligente
+      </h3>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div class="p-6 card-hover rounded-xl bg-white/80 backdrop-blur-sm hover-card">
+          <i class="fas fa-search text-3xl text-blue-500 mb-4 feature-icon"></i>
+          <h4 class="font-semibold text-blue-600">Estimation intelligente</h4>
+          <p class="mt-2 text-sm text-gray-600">Analyse d'annonces en temps réel sur Leboncoin.</p>
+        </div>
+        <div class="p-6 card-hover rounded-xl bg-white/80 backdrop-blur-sm hover-card">
+          <i class="fas fa-chart-line text-3xl text-blue-500 mb-4 feature-icon"></i>
+          <h4 class="font-semibold text-blue-600">Comparaison précise</h4>
+          <p class="mt-2 text-sm text-gray-600">Basée sur les vrais critères de votre véhicule.</p>
+        </div>
+        <div class="p-6 card-hover rounded-xl bg-white/80 backdrop-blur-sm hover-card">
+          <i class="fas fa-bolt text-3xl text-blue-500 mb-4 feature-icon"></i>
+          <h4 class="font-semibold text-blue-600">Rapide et simple</h4>
+          <p class="mt-2 text-sm text-gray-600">Résultat en quelques secondes, sans inscription.</p>
+        </div>
+        <div class="p-6 card-hover rounded-xl bg-white/80 backdrop-blur-sm hover-card">
+          <i class="fas fa-robot text-3xl text-blue-500 mb-4 feature-icon"></i>
+          <h4 class="font-semibold text-blue-600">Automatisée par IA</h4>
+          <p class="mt-2 text-sm text-gray-600">Workflows n8n + GPT-4o + scraping Leboncoin.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="neon-divider"></div>
+
+    <!-- Compétences -->
+    <section id="skills" class="px-6 py-16 parallax-section bg-gradient-to-br from-blue-100/50 to-green-100/50">
+      <h3 class="text-3xl font-bold mb-6 text-center flex items-center justify-center gap-3">
+        <i class="fas fa-laptop-code text-4xl text-blue-500"></i>
+        Un projet complet, du back au front
+      </h3>
+      <div class="max-w-4xl mx-auto text-center space-y-4">
+        <div class="p-4 card-hover rounded-xl bg-white/80 backdrop-blur-sm">
+          <i class="fas fa-paint-brush text-blue-500 mr-2"></i>
+          <strong>Frontend</strong> : React, Tailwind CSS, composants UI modernes
+        </div>
+        <div class="p-4 card-hover rounded-xl bg-white/80 backdrop-blur-sm">
+          <i class="fas fa-server text-blue-500 mr-2"></i>
+          <strong>Backend/API</strong> : API SIV, GPT-4o, automatisation avec n8n
+        </div>
+        <div class="p-4 card-hover rounded-xl bg-white/80 backdrop-blur-sm">
+          <i class="fas fa-database text-blue-500 mr-2"></i>
+          <strong>Données</strong> : scraping, filtrage intelligent, logique de calcul de prix
+        </div>
+        <div class="p-4 card-hover rounded-xl bg-white/80 backdrop-blur-sm">
+          <i class="fas fa-mobile-alt text-blue-500 mr-2"></i>
+          <strong>UX/UI</strong> : interface fluide, responsive, ergonomique
+        </div>
+        <div class="p-4 card-hover rounded-xl bg-white/80 backdrop-blur-sm">
+          <i class="fas fa-comments text-blue-500 mr-2"></i>
+          <strong>Communication</strong> : présentation, vidéos, storytelling de projet
+        </div>
+      </div>
+    </section>
+
+    <div class="neon-divider"></div>
+
+    <!-- Synthèse technique du projet -->
+    <section class="px-6 py-16 glass-effect text-left max-w-4xl mx-auto">
+      <h3 class="text-3xl font-bold gradient-text mb-4 flex items-center gap-3">
+        <i class="fas fa-microchip text-4xl text-blue-500"></i>
+        Comprendre le fonctionnement d'ArgusAI
+      </h3>
+      <p class="mb-4">ArgusAI est une application développée durant mon stage, conçue pour estimer intelligemment la valeur d'un véhicule à partir de sa plaque. Le processus est entièrement automatisé grâce à une série de technologies combinées :</p>
+      <ul class="list-none space-y-3 mb-6 text-gray-700">
+        <li class="flex items-center gap-3">
+          <i class="fas fa-plug text-blue-500"></i>
+          <strong>Webhook</strong> pour recevoir la requête utilisateur
+        </li>
+        <li class="flex items-center gap-3">
+          <i class="fas fa-robot text-blue-500"></i>
+          <strong>GPT-4o</strong> pour extraire automatiquement les informations du véhicule
+        </li>
+        <li class="flex items-center gap-3">
+          <i class="fas fa-database text-blue-500"></i>
+          <strong>API SIV</strong> pour récupérer les données officielles
+        </li>
+        <li class="flex items-center gap-3">
+          <i class="fas fa-search text-blue-500"></i>
+          <strong>Scraping Leboncoin</strong> via BrowseAI pour comparer à des annonces réelles
+        </li>
+        <li class="flex items-center gap-3">
+          <i class="fas fa-calculator text-blue-500"></i>
+          <strong>Filtrage & calcul</strong> pour proposer une estimation min / moyenne / max
+        </li>
+      </ul>
+      <p class="mb-4">Le tout est orchestré dans <strong>n8n</strong>, outil d'automatisation open-source.</p>
+    </section>
+
+    <div class="neon-divider"></div>
+
+    <!-- Présentation UI / Stack -->
+    <section class="px-6 py-16 parallax-section bg-gradient-to-br from-green-100/50 to-blue-100/50 text-left max-w-4xl mx-auto">
+      <h3 class="text-3xl font-bold gradient-text mb-4 flex items-center gap-3">
+        <i class="fas fa-palette text-4xl text-blue-500"></i>
+        Design moderne & technologies utilisées
+      </h3>
+      <p class="mb-4">ArgusAI dispose d'une interface claire, rapide et responsive. J'ai utilisé une stack web moderne pour offrir la meilleure expérience possible :</p>
+      <ul class="list-none space-y-3 text-gray-700 mb-6">
+        <li class="flex items-center gap-3">
+          <i class="fab fa-react text-blue-500"></i>
+          <strong>React + TypeScript</strong> pour le frontend
+        </li>
+        <li class="flex items-center gap-3">
+          <i class="fas fa-paint-brush text-blue-500"></i>
+          <strong>Tailwind CSS</strong> et <strong>Shadcn UI</strong> pour le design
+        </li>
+        <li class="flex items-center gap-3">
+          <i class="fas fa-route text-blue-500"></i>
+          <strong>React Router</strong> pour la navigation
+        </li>
+        <li class="flex items-center gap-3">
+          <i class="fas fa-server text-blue-500"></i>
+          <strong>Supabase</strong> pour la base de données et l'authentification
+        </li>
+        <li class="flex items-center gap-3">
+          <i class="fas fa-sync text-blue-500"></i>
+          <strong>Tanstack React Query</strong> pour la gestion des données côté client
+        </li>
+      </ul>
+      <p>L'application est aussi optimisée pour le SEO (balises Open Graph, sitemap, metadata dynamiques).</p>
+    </section>
+
+    <div class="neon-divider"></div>
+
+    <!-- Galerie / Démo -->
+    <section id="demo" class="px-6 py-16 glass-effect text-center">
+      <h3 class="text-3xl font-bold mb-6 flex items-center justify-center gap-3">
+        <i class="fas fa-images text-4xl text-blue-500"></i>
+        Visitez l'application en images
+      </h3>
+      
+      <!-- Filtres -->
+      <div class="flex justify-center space-x-4 mb-8">
+        <button class="px-4 py-2 rounded-lg gradient-bg text-white hover:shadow-lg filter-btn active transition-all duration-300 flex items-center gap-2" data-filter="all">
+          <i class="fas fa-th-large"></i> Tous
+        </button>
+        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 filter-btn transition-colors flex items-center gap-2" data-filter="presentation">
+          <i class="fas fa-window-maximize"></i> Présentation
+        </button>
+        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 filter-btn transition-colors flex items-center gap-2" data-filter="about">
+          <i class="fas fa-info-circle"></i> À propos
+        </button>
+        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 filter-btn transition-colors flex items-center gap-2" data-filter="dashboard">
+          <i class="fas fa-tachometer-alt"></i> Tableau de bord
+        </button>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto">
+        <!-- Images avec catégories -->
+        <div class="gallery-item" data-category="presentation">
+          <img src="/Images/Présentation/Accueil.png" alt="Capture d'écran Présentation" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="about">
+          <div class="video-container rounded-xl shadow w-full h-64 overflow-hidden cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)">
+            <video class="w-full h-full object-cover" src="/Images/A propos/A propos.mp4" muted></video>
+            <div class="play-overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+              <i class="fas fa-play text-white text-4xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item" data-category="dashboard">
+          <img src="/Images/Tableau de bord/Dashboard.png" alt="Capture d'écran Tableau de bord" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="presentation">
+          <img src="/Images/Présentation/Accueil - Comment ça marche.png" alt="Capture d'écran Comment ça marche" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="presentation">
+          <img src="/Images/Présentation/Accueil - Abonnements.png" alt="Capture d'écran Abonnements" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="presentation">
+          <img src="/Images/Présentation/Accueil - Actualités.png" alt="Capture d'écran Actualités" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="presentation">
+          <img src="/Images/Présentation/Inscription.png" alt="Capture d'écran Inscription" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="presentation">
+          <img src="/Images/Présentation/Connexion.png" alt="Capture d'écran Connexion" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="dashboard">
+          <img src="/Images/Tableau de bord/Assistant IA.png" alt="Capture d'écran Assistant IA" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="dashboard">
+          <img src="/Images/Tableau de bord/Historique.png" alt="Capture d'écran Historique" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="dashboard">
+          <img src="/Images/Tableau de bord/Estimations.png" alt="Capture d'écran Estimation" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="dashboard">
+          <img src="/Images/Tableau de bord/Statistiques - Apercu.png" alt="Capture d'écran Statistiques" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="dashboard">
+          <img src="/Images/Tableau de bord/Abonnement.png" alt="Capture d'écran Abonnement" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="dashboard">
+          <img src="/Images/Tableau de bord/Profil - Compte.png" alt="Capture d'écran Compte" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+         <div class="gallery-item" data-category="dashboard">
+          <img src="/Images/Tableau de bord/Profil - Sécurité.png" alt="Capture d'écran Sécurité" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="dashboard">
+          <img src="/Images/Tableau de bord/Paramètres - Général.png" alt="Capture d'écran Paramètres - Général" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="dashboard">
+          <img src="/Images/Tableau de bord/Paramètres - Notifications.png" alt="Capture d'écran Paramètres - Notifications" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="dashboard">
+          <img src="/Images/Tableau de bord/Paramètres - Apparence.png" alt="Capture d'écran Paramètres - Apparence" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="dashboard">
+          <img src="/Images/Tableau de bord/Paramètres - Confidentialité.png" alt="Capture d'écran Paramètres - Confidentialité" class="rounded-xl shadow w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)" />
+        </div>
+        <div class="gallery-item" data-category="about">
+          <div class="video-container rounded-xl shadow w-full h-64 overflow-hidden cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)">
+            <video class="w-full h-full object-cover" src="/Images/A propos/Conditions d'utilisations.mp4" muted></video>
+            <div class="play-overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+              <i class="fas fa-play text-white text-4xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item" data-category="about">
+          <div class="video-container rounded-xl shadow w-full h-64 overflow-hidden cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)">
+            <video class="w-full h-full object-cover" src="/Images/A propos/Contact.mp4" muted></video>
+            <div class="play-overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+              <i class="fas fa-play text-white text-4xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item" data-category="about">
+          <div class="video-container rounded-xl shadow w-full h-64 overflow-hidden cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)">
+            <video class="w-full h-full object-cover" src="/Images/A propos/FAQ.mp4" muted></video>
+            <div class="play-overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+              <i class="fas fa-play text-white text-4xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item" data-category="about">
+          <div class="video-container rounded-xl shadow w-full h-64 overflow-hidden cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)">
+            <video class="w-full h-full object-cover" src="/Images/A propos/Politique de confidentialité.mp4" muted></video>
+            <div class="play-overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+              <i class="fas fa-play text-white text-4xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="gallery-item" data-category="about">
+          <div class="video-container rounded-xl shadow w-full h-64 overflow-hidden cursor-pointer hover:opacity-90 transition-opacity" onclick="openModal(this)">
+            <video class="w-full h-full object-cover" src="/Images/A propos/Politique des Cookies.mp4" muted></video>
+            <div class="play-overlay absolute inset-0 flex items-center justify-center bg-black bg-opacity-30">
+              <i class="fas fa-play text-white text-4xl"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="neon-divider"></div>
+
+    <!-- Modal pour l'affichage des images en grand -->
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 hidden items-start justify-center z-50 overflow-y-auto">
+      <button class="modal-nav-button prev" onclick="navigateMedia('prev')" id="prevButton">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="modal-nav-button next" onclick="navigateMedia('next')" id="nextButton">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+      <div class="modal-counter" id="modalCounter"></div>
+      <div class="relative max-w-6xl w-full mx-4 my-8">
+        <div id="modalContent" class="bg-white rounded-lg p-4 overflow-auto modal-content">
+          <!-- Le contenu (image ou vidéo) sera inséré ici -->
+        </div>
+        <button onclick="closeModal()" class="fixed top-6 right-6 text-white text-4xl hover:text-gray-300 bg-black bg-opacity-50 rounded-full w-10 h-10 flex items-center justify-center">&times;</button>
+      </div>
+    </div>
+
+    <!-- Script pour les filtres et le modal -->
+    <script>
+      // Variables globales pour la navigation
+      let currentMediaIndex = 0;
+      let visibleMediaItems = [];
+      let currentFilter = 'all';
+
+      // Fonction pour mettre à jour la liste des médias visibles
+      function updateVisibleMediaItems() {
+        visibleMediaItems = Array.from(document.querySelectorAll('.gallery-item')).filter(item => {
+          return currentFilter === 'all' || item.getAttribute('data-category') === currentFilter;
+        });
+      }
+
+      // Fonction pour naviguer entre les médias
+      function navigateMedia(direction) {
+        if (visibleMediaItems.length === 0) return;
+
+        if (direction === 'next') {
+          currentMediaIndex = (currentMediaIndex + 1) % visibleMediaItems.length;
+        } else {
+          currentMediaIndex = (currentMediaIndex - 1 + visibleMediaItems.length) % visibleMediaItems.length;
+        }
+
+        const mediaElement = visibleMediaItems[currentMediaIndex].querySelector('img, .video-container');
+        updateModalContent(mediaElement);
+        updateNavigationButtons();
+        updateModalCounter();
+      }
+
+      // Fonction pour mettre à jour le contenu du modal
+      function updateModalContent(element) {
+        const modalContent = document.getElementById('modalContent');
+        modalContent.innerHTML = '';
+        
+        let newElement;
+        if (element.classList.contains('video-container')) {
+          const video = element.querySelector('video');
+          newElement = document.createElement('video');
+          newElement.controls = true;
+          newElement.className = 'w-full max-h-[80vh] object-contain';
+          newElement.src = video.src;
+          modalContent.appendChild(newElement);
+          newElement.play();
+        } else {
+          newElement = document.createElement('img');
+          newElement.className = 'w-auto h-auto max-w-full';
+          newElement.src = element.src;
+          newElement.alt = element.alt;
+          modalContent.appendChild(newElement);
+        }
+      }
+
+      // Fonction pour mettre à jour les boutons de navigation
+      function updateNavigationButtons() {
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+        
+        prevButton.disabled = visibleMediaItems.length <= 1;
+        nextButton.disabled = visibleMediaItems.length <= 1;
+      }
+
+      // Fonction pour mettre à jour le compteur
+      function updateModalCounter() {
+        const counter = document.getElementById('modalCounter');
+        counter.textContent = `${currentMediaIndex + 1} / ${visibleMediaItems.length}`;
+      }
+
+      // Modification de la fonction openModal
+      function openModal(element) {
+        const modal = document.getElementById('imageModal');
+        const modalContent = document.getElementById('modalContent');
+        
+        updateVisibleMediaItems();
+        
+        currentMediaIndex = visibleMediaItems.findIndex(item => 
+          item.querySelector('img, .video-container') === element
+        );
+        
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+
+        updateModalContent(element);
+        updateNavigationButtons();
+        updateModalCounter();
+
+        setTimeout(() => {
+          modalContent.classList.add('active');
+        }, 50);
+      }
+
+      // Modification de la fonction closeModal
+      function closeModal() {
+        const modal = document.getElementById('imageModal');
+        const modalContent = document.getElementById('modalContent');
+        
+        // Arrêter la vidéo si elle est en cours de lecture
+        const video = modalContent.querySelector('video');
+        if (video) {
+          video.pause();
+          video.currentTime = 0;
+        }
+        
+        modalContent.classList.remove('active');
+        
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          document.body.style.overflow = 'auto';
+        }, 300);
+      }
+
+      // Modification du gestionnaire de filtres
+      document.addEventListener('DOMContentLoaded', function() {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            // Mise à jour des styles des boutons
+            filterButtons.forEach(btn => {
+              btn.classList.remove('bg-blue-600', 'text-white');
+              btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            button.classList.remove('bg-gray-200', 'text-gray-700');
+            button.classList.add('bg-blue-600', 'text-white');
+
+            // Mise à jour du filtre actif
+            currentFilter = button.getAttribute('data-filter');
+            
+            // Filtrage des images
+            galleryItems.forEach(item => {
+              if (currentFilter === 'all' || item.getAttribute('data-category') === currentFilter) {
+                item.style.display = 'block';
+              } else {
+                item.style.display = 'none';
+              }
+            });
+
+            // Mise à jour de la liste des médias visibles
+            updateVisibleMediaItems();
+          });
+        });
+
+        // Ajout des événements clavier pour la navigation
+        document.addEventListener('keydown', function(e) {
+          if (document.getElementById('imageModal').classList.contains('flex')) {
+            if (e.key === 'ArrowLeft') {
+              navigateMedia('prev');
+            } else if (e.key === 'ArrowRight') {
+              navigateMedia('next');
+            } else if (e.key === 'Escape') {
+              closeModal();
+            }
+          }
+        });
+
+        // Gestion du bouton de lecture de la vidéo hero
+        const heroVideo = document.getElementById('heroVideo');
+        const heroPlayOverlay = document.getElementById('heroPlayOverlay');
+
+        if (heroVideo && heroPlayOverlay) {
+          heroPlayOverlay.addEventListener('click', function() {
+            heroVideo.play();
+            this.style.display = 'none';
+          });
+
+          // Réafficher le bouton play quand la vidéo est en pause ou terminée
+          heroVideo.addEventListener('pause', function() {
+            heroPlayOverlay.style.display = 'flex';
+          });
+
+          heroVideo.addEventListener('ended', function() {
+            heroPlayOverlay.style.display = 'flex';
+          });
+        }
+      });
+
+      // Ajout d'effets de parallaxe au défilement
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        document.querySelectorAll('.parallax-section').forEach(section => {
+          const speed = 0.5;
+          section.style.backgroundPositionY = `${scrolled * speed}px`;
+        });
+      });
+
+      // Gestion du bouton de retour vers le haut
+      const scrollToTopButton = document.getElementById('scrollToTop');
+
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          scrollToTopButton.classList.add('visible');
+        } else {
+          scrollToTopButton.classList.remove('visible');
+        }
+      });
+
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+    </script>
+
+    <div class="neon-divider"></div>
+
+    <!-- Conclusion -->
+    <section class="px-6 py-16 gradient-bg text-white text-center">
+      <h3 class="text-3xl font-bold mb-4 flex items-center justify-center gap-3">
+        <i class="fas fa-trophy text-4xl text-blue-500"></i>
+        Un projet concret pour illustrer mes compétences
+      </h3>
+      <p class="max-w-3xl mx-auto">
+        ArgusAI m'a permis de mener un projet complet, avec de vraies problématiques techniques et une application exploitable.  
+        Je le présente ici comme une démonstration de mes compétences et de ma motivation à travailler sur des projets concrets et utiles.
+      </p>
+    </section>
+
+    <div class="neon-divider"></div>
+
+    <!-- Footer -->
+    <footer id="contact" class="px-6 py-8 glass-effect text-center text-sm text-gray-500 border-t border-gray-200/20">
+      <div class="flex items-center justify-center gap-4 mb-4">
+        <a href="https://github.com/PamellaCode?tab=repositories" class="text-gray-400 hover:text-blue-500 transition-colors" target="_blank">
+          <i class="fab fa-github text-xl"></i>
+        </a>
+    
+      </div>
+      © 2025 – Projet réalisé par Pamella Defrend – Contact : defrendpamella@gmail.com
+    </footer>
+
+  </body>
+</html> 
